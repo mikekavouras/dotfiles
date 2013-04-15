@@ -1,0 +1,12 @@
+alias ls='ls -GpF'
+alias ll='ls -l -a'
+alias mvim='open -a /Applications/MacVim.app'
+alias vim='open -a /Applications/MacVim.app'
+alias top='echo "Use the [o] key to change the order, with the flag [pid] or [vsize] (press any key)" && read && top -o cpu'
+alias netcat='nc'
+alias play='mpg321'
+alias modify="awk '{field = \$NF}; END {print field}' | xargs open -a /Applications/MacVim.app"
+alias gitx="open -a /Applications/GitX.app"
+alias guard="bundle exec guard"
+alias git=hub
+alias it=git
