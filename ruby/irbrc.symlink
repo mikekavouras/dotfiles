@@ -2,20 +2,64 @@
 require 'irb/completion'
 require 'irb/ext/save-history'
 require 'rubygems'
+require 'pp'
 
 IRB.conf[:SAVE_HISTORY] = 1000
 IRB.conf[:HISTORY_FILE] = "#{ENV['HOME']}/.irb_history"
-
 IRB.conf[:PROMPT_MODE] = :SIMPLE
-
 IRB.conf[:AUTO_INDENT] = true
+IRB.conf[:AUTO_INDENT] = true
+
+require 'ap'
+require 'what_methods'
+require 'wirble'
+
+if defined?(Wirble)
+  Wirble.init
+  Wirble.colorize unless Config::CONFIG['host_os'] == 'mswin32'
+end
+
+ARGV.concat [ "--readline", "--prompt-mode", "simple" ]
+
+module Readline
+  module History
+    LOG = "#{ENV['HOME']}/.irb-history"
+
+    def self.write_log(line)
+      File.open(LOG, 'ab') {|f| f << "#{line}
+"}
+    end
+
+    def self.start_session_log
+      write_log("
+# session start: #{Time.now}
+
+")
+      at_exit { write_log("
+# session stop: #{Time.now}
+") }
+    end
+  end
+
+  alias :old_readline :readline
+  def readline(*args)
+    ln = old_readline(*args)
+    begin
+      History.write_log(ln)
+    rescue
+    end
+    ln
+  end
+end
+
+Readline::History.start_session_log
 
 class Object
   # list methods which aren't in superclass
   def local_methods(obj = self)
     (obj.methods - obj.class.superclass.instance_methods).sort
   end
-  
+
   # print documentation
   #
   #   ri 'Array#pop'
@@ -29,12 +73,4 @@ class Object
     end
     puts `ri '#{method}'`
   end
-end
-
-def me
-  User.find_by_login('holman')
-end
-
-def r
-  reload!
 end

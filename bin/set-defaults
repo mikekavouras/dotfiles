@@ -1,5 +1,7 @@
 #!/bin/sh
 #
-# Sets OS X defaults by running $ZSH/osx/set-defaults.sh.
+# Sets OS X defaults by running ../osx/set-defaults.sh.
 
-exec $ZSH/osx/set-defaults.sh
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+exec $DIR/../osx/set-defaults.sh

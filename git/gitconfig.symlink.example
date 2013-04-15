@@ -10,10 +10,9 @@
         helper = osxkeychain
 [alias]
         co = checkout
-        promote = !$ZSH/bin/git-promote
         wtf     = !$ZSH/bin/git-wtf
         rank-contributers = !$ZSH/bin/git-rank-contributers
-        count   = !git shortlog -sn
+        delete-local-merged = !$ZSH/bin/git-delete-local-merged
 [color]
         diff = auto
         status = auto
