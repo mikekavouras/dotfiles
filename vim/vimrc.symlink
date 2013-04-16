@@ -54,13 +54,13 @@ set nocp incsearch
 set cinoptions=:0,p0,t0
 set cinwords=if,else,while,do,for,switch,case
 set formatoptions=tcqr
-set cindent
-set autoindent
 set smarttab
 set expandtab
 set hlsearch
 set ignorecase
 set smartcase
+
+filetype indent on
 
 " Visual
 set showmatch  " Show matching brackets.

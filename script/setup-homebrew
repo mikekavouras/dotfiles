@@ -1,0 +1,33 @@
+#!/bin/bash
+#
+# This file is not run directly, it is instead called from script/bootstrap
+
+setup_homebrew () {
+  # If we are on a mac, lets install and setup homebrew
+  if [ "$(uname -s)" == "Darwin" ]
+  then
+
+    # XCode is a pre-requisite, if you hit this you didn't follow instructions
+    if ! [ -f /Applications/Xcode.app ]
+    then
+      open macappstores://itunes.apple.com/us/app/xcode/id497799835?mt=12
+
+      fail "You must install Xcode before bootstrapping"
+    fi
+
+    # Check for Homebrew
+    if test ! $(which brew)
+    then
+      info 'setup homebrew'
+
+      ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+    fi
+
+    info 'updating homebrew'
+
+    brew update
+
+  fi
+}
+
+
