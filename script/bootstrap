@@ -10,20 +10,19 @@ set -e
 echo ''
 
 info () {
-  printf "  [ \033[00;34m..\033[0m ] $1"
+  printf "\033[00;34m$1\033[0m\n"
 }
 
 user () {
-  printf "\r  [ \033[0;33m?\033[0m ] $1 "
+  printf "\033[0;33m$1\033[0m: "
 }
 
 success () {
-  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+  printf "\033[00;32m$1\033[0m\n"
 }
 
 fail () {
-  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
-  echo ''
+  printf "\n\033[2K[\033[0;31mX\033[0m] $1\n"
   exit
 }
 
@@ -34,7 +33,7 @@ done
 
 setup_gitconfig
 setup_dotfiles
-# setup_osx
-# setup_homebrew
+setup_osx
+setup_homebrew
 
 success "Setup complete"

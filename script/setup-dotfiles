@@ -4,11 +4,11 @@
 
 link_files () {
   ln -s $1 $2
-  success "linked $1 to $2"
+  success "Linked $1 to $2"
 }
 
 setup_dotfiles () {
-  info 'installing dotfiles'
+  info 'Installing .dotfiles'
 
   overwrite_all=false
   backup_all=false
@@ -27,8 +27,9 @@ setup_dotfiles () {
 
       if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]
       then
-        user "File already exists: `basename $dest`, what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
+        user "File already exists: `basename $dest`, what do you want to do? [s/S]kip (all), [o/O]verwrite (all), [b/B]ackup (all)?"
         read -n 1 action
+        echo ''
 
         case "$action" in
           o )
@@ -51,20 +52,20 @@ setup_dotfiles () {
       if [ "$overwrite" == "true" ] || [ "$overwrite_all" == "true" ]
       then
         rm -rf $dest
-        success "removed $dest"
+        info "Removed $dest"
       fi
 
       if [ "$backup" == "true" ] || [ "$backup_all" == "true" ]
       then
         mv $dest $dest\.backup
-        success "moved $dest to $dest.backup"
+        info "Moved $dest to $dest.backup"
       fi
 
       if [ "$skip" == "false" ] && [ "$skip_all" == "false" ]
       then
         link_files $source $dest
       else
-        success "skipped $source"
+        info "Skipped $source"
       fi
 
     else
