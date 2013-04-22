@@ -18,6 +18,12 @@ cd ~/.dotfiles
 script/bootstrap
 ```
 
+If you don't have git installed, run this:
+
+```sh
+curl -fsSL https://raw.github.com/jeffrafter/dotfiles/master/script/bootstrap | sh
+```
+
 This will symlink the appropriate files in `.dotfiles` to your home directory.
 Everything is configured and tweaked within `~/.dotfiles`.
 
