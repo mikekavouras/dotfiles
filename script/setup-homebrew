@@ -6,27 +6,7 @@ setup_homebrew () {
   # If we are on a mac, lets install and setup homebrew
   if [ "$(uname -s)" == "Darwin" ]
   then
-
-    # XCode is a pre-requisite, if you hit this you didn't follow instructions
-    if ! [ -e /Applications/Xcode.app ]
-    then
-      open macappstores://itunes.apple.com/us/app/xcode/id497799835?mt=12
-
-      fail "You must install Xcode before bootstrapping"
-    fi
-
-    # Check for Homebrew
-    if test ! $(which brew)
-    then
-      info 'Installing homebrew'
-
-      ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
-    fi
-
-    info 'Updating homebrew'
-
-    brew update
-
+    info "Install homebrew things"
   fi
 }
 

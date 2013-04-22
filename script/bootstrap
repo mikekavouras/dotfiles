@@ -26,14 +26,61 @@ fail () {
   exit
 }
 
+function_exists() {
+  declare -f -F $1 > /dev/null
+  return $?
+}
+
+install_homebrew () {
+  # If we are on a mac, lets install and setup homebrew
+  if [ "$(uname -s)" == "Darwin" ]
+  then
+
+    # XCode is a pre-requisite, if you hit this you didn't follow instructions
+    if ! [ -e /Applications/Xcode.app ]
+    then
+      open macappstores://itunes.apple.com/us/app/xcode/id497799835?mt=12
+
+      fail "You must install Xcode before bootstrapping"
+    fi
+
+    # Check for Homebrew
+    if test ! $(which brew)
+    then
+      info 'Installing homebrew'
+
+      ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+    fi
+
+    info 'Updating homebrew'
+
+    brew update
+
+    brew install git
+  fi
+}
+
+install_dotfiles () {
+  info "Cloning dotfiles repository"
+
+  git clone git://github.com/jeffrafter/dotfiles.git ~/.dotfiles
+}
+
+install_homebrew
+
+if ! [ -e ~/.dotfiles ]
+then
+  install_dotfiles
+fi
+
 for source in `find $DOTFILES_SCRIPTS -maxdepth 1 -name setup-\*`
 do
   source $source
 done
 
-setup_gitconfig
-setup_dotfiles
-setup_osx
-setup_homebrew
+function_exists "setup_gitconfig" && setup_gitconfig
+function_exists "setup_dotfiles" && setup_dotfiles
+function_exists "setup_osx" && setup_osx
+function_exists "setup_homebrew" && setup_homebrew
 
 success "Setup complete"
