@@ -15,18 +15,18 @@ setup_osx () {
   # General UI/UX                                                               #
   ###############################################################################
 
-  # user "What is your computer name? (e.g. $(scutil --get ComputerName))"
-  # read -e osx_computer_name
+  user "What is your computer name? (e.g. $(scutil --get ComputerName))"
+  read -e osx_computer_name
 
-  # user "What is your computer host name? (e.g. $(scutil --get HostName))"
-  # read -e osx_computer_host_name
+  user "What is your computer host name? (e.g. $(scutil --get HostName))"
+  read -e osx_computer_host_name
 
   # Set computer name (as done via System Preferences → Sharing)
-  # sudo scutil --set ComputerName $osx_computer_name
-  # sudo scutil --set HostName $osx_computer_host_name
+  sudo scutil --set ComputerName $osx_computer_name
+  sudo scutil --set HostName $osx_computer_host_name
   # sudo scutil --set LocalHostName $osx_computer_host_name.local
-  # sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string $osx_computer_host_name
-  # success "Host names set"
+  sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string $osx_computer_host_name
+  success "Host names set"
 
   sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
   success "Reveal IP address, hostname, OS version, etc. when clicking the clock in the login window"
