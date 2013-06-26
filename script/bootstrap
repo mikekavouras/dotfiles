@@ -60,6 +60,12 @@ install_homebrew () {
   fi
 }
 
+install_prereqs() {
+  mkdir -p /usr/local/git/contrib/completion/
+  curl https://raw.github.com/git/git/master/contrib/completion/git-completion.bash -o /usr/local/git/contrib/completion/git-completion.bash
+  curl https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh -o /usr/local/git/contrib/completion/git-prompt.sh
+}
+
 install_dotfiles () {
   info "Cloning dotfiles repository"
 

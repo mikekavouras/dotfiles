@@ -1,4 +1,6 @@
-export PATH=/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:$PATH
+export DEVKITPRO=/projects/devkitpro
+export DEVKITPPC=$DEVKITPRO/devkitPPC
+export PATH=~/.dotfiles/bin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:$DEVKITPPC/bin:$PATH
 export MANPATH=/opt/local/share/man:$MANPATH
 export HISTCONTROL=ignoredups
 export SVN_EDITOR="nano"
@@ -16,6 +18,7 @@ source ~/.bash_colors
 source ~/.bash_completions
 source ~/.bash_prompt
 source ~/.bash_ssh
+source ~/.bash_rb
 
 case $TERM in
 xterm* | aterm | rxvt | screen )

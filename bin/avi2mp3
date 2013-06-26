@@ -1,0 +1,9 @@
+#!/bin/sh
+#
+#  Usage:
+#
+#    webm2mp3 S5FCdx7Dn0o.webm buffalo_soldier.mp3 0
+#
+#  Where 0 is the seek seconds from the start of the file if you want to clip
+
+ffmpeg -i $1 -vn -ab 192k -ss $3 $2
