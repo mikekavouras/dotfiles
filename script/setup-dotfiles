@@ -89,5 +89,3 @@ setup_dotfiles () {
   done
 
 }
-
-
