@@ -1,4 +1,4 @@
-# jeffrafter does dotfiles
+# mikekavouras does dotfiles
 
 ## dotfiles
 
@@ -13,7 +13,7 @@ and to bash over zsh.
 Run this:
 
 ```sh
-git clone https://github.com/jeffrafter/dotfiles.git ~/.dotfiles
+git clone https://github.com/mikekavouras/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 script/bootstrap
 ```
@@ -21,7 +21,7 @@ script/bootstrap
 If you don't have git installed, run this:
 
 ```sh
-curl -fsSL https://raw.github.com/jeffrafter/dotfiles/master/script/bootstrap | sh
+curl -fsSL https://raw.github.com/mikekavouras/dotfiles/master/script/bootstrap | sh
 ```
 
 This will symlink the appropriate files in `.dotfiles` to your home directory.
@@ -67,7 +67,7 @@ said, I do use this as *my* dotfiles, so there's a good chance I may break
 something if I forget to make a check for a dependency.
 
 If you're brand-new to the project and run into any blockers, please
-[open an issue](https://github.com/jeffrafter/dotfiles/issues) on this repository
+[open an issue](https://github.com/mikekavouras/dotfiles/issues) on this repository
 and I'd love to get it fixed for you!
 
 ## thanks
