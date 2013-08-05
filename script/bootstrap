@@ -73,6 +73,7 @@ install_dotfiles () {
 }
 
 install_homebrew
+install_prereqs
 
 if ! [ -e ~/.dotfiles ]
 then

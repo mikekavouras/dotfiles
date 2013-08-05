@@ -6,28 +6,11 @@ set nocompatible  " We don't want vi compatibility.
 " Add recently accessed projects menu (project plugin)
 set viminfo^=!
 
-" Minibuffer Explorer Settings
-let g:miniBufExplMapWindowNavVim = 1
-let g:miniBufExplMapWindowNavArrows = 1
-let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplModSelTarget = 1
-
-" Command-T
-let g:CommandTMaxHeight=20
-let g:CommandTAcceptSelectionMap = '<C-t>'
-let g:CommandTAcceptSelectionTabMap = '<cr>'
-
-map <D-p> <C-P>
-inoremap <Tab> <C-P>
-
-" alt+n or alt+p to navigate between entries in QuickFix
-map <silent> <m-p> :cp <cr>
-map <silent> <m-n> :cn <cr>
-
 " Change which file opens after executing :Rails command
 let g:rails_default_file='config/database.yml'
 
 syntax enable
+colorscheme xoria256
 
 set cf  " Enable error files & error jumping.
 set clipboard+=unnamed  " Yanks go on clipboard instead.
@@ -37,14 +20,6 @@ set ruler  " Ruler on
 set nu  " Line numbers on
 set nowrap  " Line wrapping off
 set timeoutlen=250  " Time to wait after ESC (default causes an annoying delay)
-
-set spell
-
-syntax enable
-set background=light
-colorscheme solarized
-" hi Normal guibg=#111117
-hi Normal guibg=#FDF6E3
 
 " Formatting (some of these are for coding in C and C++)
 set ts=2  " Tabs are 2 spaces
@@ -69,8 +44,6 @@ set list
 set lcs=trail:·,tab:»·,extends:>,precedes:<
 set visualbell
 set noerrorbells  " No noise.
-set laststatus=2  " Always show status line.
-
 
 " gvim specific
 set mousehide  " Hide mouse after chars typed
@@ -98,21 +71,6 @@ set wildmenu
 " When in visualblock, go past the end of the line
 set virtualedit=block
 
-" Tweak the GUI
-if has('gui')
-  set guioptions-=T                " no menu
-
-  if has('win32')
-    set guifont=Lucida_Console:h16
-  endif
-
-  if has('gui_macvim')
-    set guifont=Menlo:h12
-    set fuoptions=maxhorz,maxvert  " Let Fullscreen be really fullscreen
-    set transparency=0             " Mac selling point #1? transparent windows! :-) was 5
-  endif
-endif
-
 " Functions
 function! <SID>StripTrailingWhitespaces()
     " Preparation: save last search, and cursor position.
@@ -139,51 +97,6 @@ function! <SID>Clean()
     call cursor(lC, cC)
 endfunction
 
-nnoremap <C-H> :Hexmode<CR>
-inoremap <C-H> <Esc>:Hexmode<CR>
-vnoremap <C-H> :<C-U>Hexmode<CR>
-
-" ex command for toggling hex mode - define mapping if desired
-command -bar Hexmode call ToggleHex()
-
-" helper function to toggle hex mode
-function ToggleHex()
-  " hex mode should be considered a read-only operation
-  " save values for modified and read-only for restoration later,
-  " and clear the read-only flag for now
-  let l:modified=&mod
-  let l:oldreadonly=&readonly
-  let &readonly=0
-  let l:oldmodifiable=&modifiable
-  let &modifiable=1
-  if !exists("b:editHex") || !b:editHex
-    " save old options
-    let b:oldft=&ft
-    let b:oldbin=&bin
-    " set new options
-    setlocal binary " make sure it overrides any textwidth, etc.
-    let &ft="xxd"
-    " set status
-    let b:editHex=1
-    " switch to hex editor
-    %!xxd
-  else
-    " restore old options
-    let &ft=b:oldft
-    if !b:oldbin
-      setlocal nobinary
-    endif
-    " set status
-    let b:editHex=0
-    " return to normal editing
-    %!xxd -r
-  endif
-  " restore values for modified and read only state
-  let &mod=l:modified
-  let &readonly=l:oldreadonly
-  let &modifiable=l:oldmodifiable
-endfunction
-
 " autocommands
 if has('autocmd')
   autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
@@ -193,21 +106,18 @@ if has('autocmd')
   autocmd FileType python   set noexpandtab
 endif
 
-if has("gui_macvim")
-  macmenu &File.New\ Tab key=<nop>
-endif
+" tabs and tab navigation
+nnoremap <C-t> :tabnew<CR>
+nnoremap <C-l> :tabnext<CR>
+nnoremap <C-h> :tabprevious<CR>
 
-if has("gui_macvim")
-  macmenu &File.New\ Tab key=<nop>
-endif
+" CtrlP
+map <Leader>t :CtrlP<CR>
 
-map <D-t> <Esc> :CommandT<CR>
-inoremap <D-t> <Esc> :CommandT<CR>
+" nerdtree
+map <Leader>n :NERDTreeToggle<CR>
 
-map <D-f> <Esc> /
-inoremap <D-f> <Esc> /
-
-map <D-t><D-t> <Esc> :CommandTFlush<CR>
-inoremap <D-t><D-t> <Esc> :CommandTFlush<CR>
-
+" command p
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+set runtimepath^=~/.vim/bundle/ctrlp.vim
 
