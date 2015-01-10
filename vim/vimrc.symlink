@@ -9,6 +9,7 @@ set viminfo^=!
 " Change which file opens after executing :Rails command
 let g:rails_default_file='config/database.yml'
 
+
 syntax enable
 colorscheme xoria256
 
@@ -104,6 +105,15 @@ if has('autocmd')
 
   autocmd FileType make     set noexpandtab
   autocmd FileType python   set noexpandtab
+
+  autocmd BufNewFile,BufRead *.less set filetype=css
+  autocmd BufNewFile,BufRead *.pjs set filetype=javascript
+  autocmd BufNewFile,BufRead *.liquid set filetype=html
+  autocmd BufNewFile,BufRead *.ejs set filetype=html
+  autocmd BufNewFile,BufRead *css.liquid set filetype=css
+  autocmd BufNewFile,BufRead *scss.liquid set filetype=scss
+  autocmd BufNewFile,BufRead *js.liquid set filetype=javascript
+  autocmd! BufNewFile,BufRead *.pde setlocal filetype=java
 endif
 
 " tabs and tab navigation

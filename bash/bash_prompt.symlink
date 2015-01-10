@@ -20,7 +20,7 @@ git_prompt ()
         return 0
     fi
 
-    git_branch=$(git status -b 2>/dev/null | grep "# On branch" | sed 's/# On branch //')
+    git_branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
 
     if git diff --quiet 2>/dev/null >&2; then
         git_color="$c_git_clean"
@@ -28,7 +28,7 @@ git_prompt ()
         git_color="$c_git_dirty"
     fi
 
-    echo " [$git_color$git_branch${c_reset}]"
+    echo " [$git_color$git_branch${c_reset}] "
 }
 
 PROMPT_COMMAND='echo -ne "\033]0;${PWD}\007";PS1="${c_user}\u${c_reset}@${c_user}\h${c_reset}:${c_path}\w${c_reset}$(git_prompt)\$ "'
