@@ -31,8 +31,8 @@ setup_osx () {
   sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
   success "Reveal IP address, hostname, OS version, etc. when clicking the clock in the login window"
 
-  defaults write com.apple.menuextra.battery ShowPercent -string "NO"
-  defaults write com.apple.menuextra.battery ShowTime -string "YES"
+  defaults write com.apple.menuextra.battery ShowPercent -string "YES"
+  defaults write com.apple.menuextra.battery ShowTime -string "NO"
   success "Show remaining battery time (on pre-10.8); hide percentage in the menu bar"
 
   defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
