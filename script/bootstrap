@@ -49,7 +49,7 @@ install_homebrew () {
     then
       info 'Installing homebrew'
 
-      ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+      ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     fi
 
     info 'Updating homebrew'

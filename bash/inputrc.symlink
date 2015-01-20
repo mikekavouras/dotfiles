@@ -2,8 +2,8 @@
 # Actually what this does is kill the e key...
 # export TERM=xterm
 
-set show-all-if-ambiguous on
-set completion-ignore-case on
+set show-all-if-ambiguous On
+set completion-ignore-case On
 set bell-style none
 
 set prefer-visible-bell
