@@ -1,16 +1,24 @@
 call pathogen#infect()
 
-filetype on " Automatically detect file types.
+filetype off " Automatically detect file types.
 set nocompatible  " We don't want vi compatibility.
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" Vim plugins
+Plugin 'wincent/command-t'
+
+call vundle#end()
 
 " Add recently accessed projects menu (project plugin)
 set viminfo^=!
 
-" Change which file opens after executing :Rails command
+" Change which file opens after executing :Rails c ommand
 let g:rails_default_file='config/database.yml'
 
-
 syntax enable
+syntax on
 colorscheme xoria256
 
 set cf  " Enable error files & error jumping.
@@ -37,6 +45,7 @@ set ignorecase
 set smartcase
 
 filetype indent on
+filetype plugin indent on
 
 " Visual
 set showmatch  " Show matching brackets.
@@ -121,13 +130,14 @@ nnoremap <C-t> :tabnew<CR>
 nnoremap <C-l> :tabnext<CR>
 nnoremap <C-h> :tabprevious<CR>
 
-" CtrlP
-map <Leader>t :CtrlP<CR>
-
 " nerdtree
 map <Leader>n :NERDTreeToggle<CR>
 
+" CtrlP
+" map <Leader>t :CtrlP<CR>
+
+
 " command p
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-set runtimepath^=~/.vim/bundle/ctrlp.vim
+" set runtimepath^=~/.vim/bundle/ctrlp.vim
+" set runtimepath^=~/.vim/bundle/ctrlp.vim
 

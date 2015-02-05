@@ -17,7 +17,7 @@ shopt -s histappend
 
 source ~/.bash_aliases
 source ~/.bash_colors
-source ~/.bash_completions
+# source ~/.bash_completions
 source ~/.bash_prompt
 source ~/.bash_ssh
 source ~/.bash_rb
@@ -34,8 +34,8 @@ if [ -f ~/.bash_extras ]; then
 fi
 
 # added by travis gem
-source /Users/Mike/.travis/travis.sh
+# source /Users/Mike/.travis/travis.sh
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
-source /Users/Mike/perl5/perlbrew/etc/bashrc
+# source /Users/Mike/perl5/perlbrew/etc/bashrc
