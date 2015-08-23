@@ -1,13 +1,21 @@
+set nocompatible  " We don't want vi compatibility.
+
 call pathogen#infect()
 
 filetype off " Automatically detect file types.
-set nocompatible  " We don't want vi compatibility.
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " Vim plugins
-Plugin 'wincent/command-t'
+Plugin 'Valloric/YouCompleteMe' " autocomplete
+Plugin 'pangloss/vim-javascript' " js syntax
+Plugin 'tpope/vim-fugitive' " git warpper
+Plugin 'kien/ctrlp.vim' " file search
+Plugin 'tpope/vim-surround' " convenient
+Plugin 'tpope/vim-rails' " rails
+Plugin 'tpope/vim-haml' " haml/sass/scss
+Plugin 'elzr/vim-json' " format json
 
 call vundle#end()
 
@@ -122,7 +130,8 @@ if has('autocmd')
   autocmd BufNewFile,BufRead *css.liquid set filetype=css
   autocmd BufNewFile,BufRead *scss.liquid set filetype=scss
   autocmd BufNewFile,BufRead *js.liquid set filetype=javascript
-  autocmd! BufNewFile,BufRead *.pde setlocal filetype=java
+  autocmd BufNewFile,BufRead *.json set filetype=javascript
+  autocmd! BufNewFile,BufRead *.pde setlocal filetype=javascript
 endif
 
 " tabs and tab navigation
@@ -134,7 +143,7 @@ nnoremap <C-h> :tabprevious<CR>
 map <Leader>n :NERDTreeToggle<CR>
 
 " CtrlP
-" map <Leader>t :CtrlP<CR>
+map <Leader>t :CtrlP<CR>
 
 
 " command p

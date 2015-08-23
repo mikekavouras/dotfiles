@@ -6,4 +6,5 @@ alias play='mpg321'
 alias modify="awk '{field = \$NF}; END {print field}' | xargs open -a /Applications/MacVim.app"
 alias gitx="open -a /Applications/GitX.app"
 alias guard="bundle exec guard"
-alias it=git
+alias dokku='$HOME/.dokku/contrib/dokku_client.sh'
+alias pg='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
