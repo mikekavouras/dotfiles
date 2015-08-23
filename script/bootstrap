@@ -72,8 +72,13 @@ install_dotfiles () {
   git clone git://github.com/mikekavouras/dotfiles.git ~/.dotfiles
 }
 
+install_vundle () {
+  git clone i$ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+}
+
 install_homebrew
 install_prereqs
+install_vundle
 
 if ! [ -e ~/.dotfiles ]
 then
