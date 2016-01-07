@@ -1,4 +1,4 @@
-eval "$(rbenv init -)"
+# eval "$(rbenv init -)"
 
 # rehash shims
 # rbenv rehash 2>/dev/null

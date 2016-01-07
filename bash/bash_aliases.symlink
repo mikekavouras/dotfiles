@@ -8,3 +8,6 @@ alias gitx="open -a /Applications/GitX.app"
 alias guard="bundle exec guard"
 alias dokku='$HOME/.dokku/contrib/dokku_client.sh'
 alias pg='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
+alias py='python'
+alias xcode_enable_vim='cd ~/Desktop/XVim/; make'
+alias xcode_disable_vim='cd ~/Desktop/XVim/; make uninstall'

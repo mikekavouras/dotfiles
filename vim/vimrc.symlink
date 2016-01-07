@@ -10,12 +10,14 @@ call vundle#begin()
 " Vim plugins
 Plugin 'Valloric/YouCompleteMe' " autocomplete
 Plugin 'pangloss/vim-javascript' " js syntax
-Plugin 'tpope/vim-fugitive' " git warpper
+Plugin 'tpope/vim-fugitive' " git wrapper
 Plugin 'kien/ctrlp.vim' " file search
 Plugin 'tpope/vim-surround' " convenient
 Plugin 'tpope/vim-rails' " rails
 Plugin 'tpope/vim-haml' " haml/sass/scss
 Plugin 'elzr/vim-json' " format json
+Plugin 'mustache/vim-mustache-handlebars' " mustache syntax
+Plugin 'kballard/vim-swift'
 
 call vundle#end()
 
@@ -127,6 +129,7 @@ if has('autocmd')
   autocmd BufNewFile,BufRead *.pjs set filetype=javascript
   autocmd BufNewFile,BufRead *.liquid set filetype=html
   autocmd BufNewFile,BufRead *.ejs set filetype=html
+  autocmd BufNewFile,BufRead *.ino set filetype=c
   autocmd BufNewFile,BufRead *css.liquid set filetype=css
   autocmd BufNewFile,BufRead *scss.liquid set filetype=scss
   autocmd BufNewFile,BufRead *js.liquid set filetype=javascript
