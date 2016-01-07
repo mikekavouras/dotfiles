@@ -69,6 +69,16 @@ setup_osx () {
   defaults write com.apple.BezelServices kDimTime -int 300
   success "Turn off keyboard illumination when computer is not used for 5 minutes"
 
+  defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
+  success "Turn off natural scrolling"
+
+  defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+  success "Disable auto-correct"
+
+  defaults write -g com.apple.trackpad.scaling 5
+  success "Set a blazingly fast trackpad speed"
+
+
   ###############################################################################
   # Screen                                                                      #
   ###############################################################################
