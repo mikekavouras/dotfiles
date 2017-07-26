@@ -4,9 +4,22 @@ fi
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
 fi
-export PATH=/Applications/CMake.app/Contents/bin:/usr/local/heroku/bin:/Users/Mike/.rbenv/shims:/Users/Mike/.dotfiles/bin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:/projects/devkitpro/devkitPPC/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:~/Projects/personal/code/nand2tetris/nand2tetris/tools
+export PATH=/Applications/CMake.app/Contents/bin:/usr/local/heroku/bin:/Users/Mike/.dotfiles/bin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:/projects/devkitpro/devkitPPC/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:~/Projects/personal/code/nand2tetris/nand2tetris/tools
 export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH="$HOME/.rbenv/shims:$PATH"
+export PATH="$HOME/Library/Android/sdk/tools:$PATH"
+export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
 export PATH="/usr/local/git/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:$PATH"
+export FONTCONFIG_PATH=/opt/X11/lib/X11/fontconfig:$FONTCONFIG_PATH
 alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
+alias vs='Visual\ Studio\ Code'
 export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+eval "$(pyenv init -)"
 eval "$(rbenv init -)"
+export PATH=$PATH:/Users/mikekavouras/Library/Android/sdk/platform-tools/
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/mikekavouras/.google-cloud-sdk/path.bash.inc' ]; then source '/Users/mikekavouras/.google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/mikekavouras/.google-cloud-sdk/completion.bash.inc' ]; then source '/Users/mikekavouras/.google-cloud-sdk/completion.bash.inc'; fi

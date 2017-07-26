@@ -7,7 +7,13 @@ alias modify="awk '{field = \$NF}; END {print field}' | xargs open -a /Applicati
 alias gitx="open -a /Applications/GitX.app"
 alias guard="bundle exec guard"
 alias dokku='$HOME/.dokku/contrib/dokku_client.sh'
-alias pg='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
+alias pg='pg_ctl -D /usr/local/var/postgres'
+alias pg_start='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
+alias pg_stop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
 alias py='python'
 alias xcode_enable_vim='cd ~/Desktop/XVim/; make'
 alias xcode_disable_vim='cd ~/Desktop/XVim/; make uninstall'
+alias dokku='$HOME/.dokku/contrib/dokku_client.sh'
+
+alias gs='git status'
+alias gc='git commit'

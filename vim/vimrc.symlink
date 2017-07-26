@@ -8,16 +8,17 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " Vim plugins
-Plugin 'Valloric/YouCompleteMe' " autocomplete
+Plugin 'fatih/vim-go' " go syntax
+" Plugin 'Valloric/YouCompleteMe' " autocomplete
 Plugin 'pangloss/vim-javascript' " js syntax
 Plugin 'tpope/vim-fugitive' " git wrapper
 Plugin 'kien/ctrlp.vim' " file search
-Plugin 'tpope/vim-surround' " convenient
 Plugin 'tpope/vim-rails' " rails
 Plugin 'tpope/vim-haml' " haml/sass/scss
 Plugin 'elzr/vim-json' " format json
 Plugin 'mustache/vim-mustache-handlebars' " mustache syntax
-Plugin 'kballard/vim-swift'
+Plugin 'keith/swift.vim'
+Plugin 'elixir-lang/vim-elixir'
 
 call vundle#end()
 
@@ -127,6 +128,11 @@ if has('autocmd')
 
   autocmd BufNewFile,BufRead *.less set filetype=css
   autocmd BufNewFile,BufRead *.pjs set filetype=javascript
+  autocmd BufNewFile,BufRead Podfile set filetype=ruby
+  autocmd BufNewFile,BufRead Gemfile set filetype=ruby
+  autocmd BufNewFile,BufRead *.af set filetype=ruby
+  autocmd BufNewFile,BufRead Fastfile set filetype=ruby
+  autocmd BufNewFile,BufRead Matchfile set filetype=ruby
   autocmd BufNewFile,BufRead *.liquid set filetype=html
   autocmd BufNewFile,BufRead *.ejs set filetype=html
   autocmd BufNewFile,BufRead *.ino set filetype=c
@@ -135,6 +141,7 @@ if has('autocmd')
   autocmd BufNewFile,BufRead *js.liquid set filetype=javascript
   autocmd BufNewFile,BufRead *.json set filetype=javascript
   autocmd! BufNewFile,BufRead *.pde setlocal filetype=javascript
+  autocmd! BufNewFile,BufRead .babelrc setlocal filetype=javascript
 endif
 
 " tabs and tab navigation
@@ -147,6 +154,7 @@ map <Leader>n :NERDTreeToggle<CR>
 
 " CtrlP
 map <Leader>t :CtrlP<CR>
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|_build|deps|ios|android|tmp)$'
 
 
 " command p
