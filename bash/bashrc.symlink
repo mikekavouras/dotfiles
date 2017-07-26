@@ -15,10 +15,9 @@ shopt -s checkwinsize
 shopt -s cdspell
 shopt -s histappend
 
-source $(brew --prefix php-version)/php-version.sh && php-version 5
 source ~/.bash_aliases
 source ~/.bash_colors
-# source ~/.bash_completions
+source ~/.bash_completions
 source ~/.bash_prompt
 source ~/.bash_ssh
 source ~/.bash_rb

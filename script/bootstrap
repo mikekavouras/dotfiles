@@ -73,7 +73,7 @@ install_dotfiles () {
 }
 
 install_vundle () {
-  git clone i$ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 }
 
 install_homebrew
