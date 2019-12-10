@@ -1,163 +1,209 @@
-set nocompatible  " We don't want vi compatibility.
+scriptencoding utf-8
 
-call pathogen#infect()
+set backspace=2       " Backspace deletes like most programs in insert mode
+set noshowmode        " powerline shows the mode
+set hlsearch          " highlight searches (:noh to turn off)
+set ignorecase        " case insensitive searching
+set smartcase         " overrides ignorecase when pattern contains caps
+set laststatus=2      " Always display the status line
+set winwidth=80       " minimum width for active split
+set clipboard=unnamed " use OS clipboard
+set ruler             " show the cursor position all the time
+set showcmd           " display incomplete commands
+set incsearch         " do incremental searching
+set laststatus=2      " Always display the status line
+set autowrite         " Automatically :write before running commands
+set foldmethod=indent
+set foldnestmax=10
+set nofoldenable
+set foldlevel=2
+set nobackup
+set nowritebackup
+set noswapfile
+set history=50
 
-filetype off " Automatically detect file types.
-
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" Vim plugins
-Plugin 'fatih/vim-go' " go syntax
-" Plugin 'Valloric/YouCompleteMe' " autocomplete
-Plugin 'pangloss/vim-javascript' " js syntax
-Plugin 'tpope/vim-fugitive' " git wrapper
-Plugin 'kien/ctrlp.vim' " file search
-Plugin 'tpope/vim-rails' " rails
-Plugin 'tpope/vim-haml' " haml/sass/scss
-Plugin 'elzr/vim-json' " format json
-Plugin 'mustache/vim-mustache-handlebars' " mustache syntax
-Plugin 'keith/swift.vim'
-Plugin 'elixir-lang/vim-elixir'
-
-call vundle#end()
-
-" Add recently accessed projects menu (project plugin)
-set viminfo^=!
-
-" Change which file opens after executing :Rails c ommand
-let g:rails_default_file='config/database.yml'
-
-syntax enable
-syntax on
-colorscheme xoria256
-
-set cf  " Enable error files & error jumping.
-set clipboard+=unnamed  " Yanks go on clipboard instead.
-set history=1024  " Number of things to remember in history.
-set autowrite  " Writes on make/shell commands
-set ruler  " Ruler on
-set nu  " Line numbers on
-set nowrap  " Line wrapping off
-set timeoutlen=250  " Time to wait after ESC (default causes an annoying delay)
-
-" Formatting (some of these are for coding in C and C++)
-set ts=2  " Tabs are 2 spaces
-set bs=2  " Backspace over everything in insert mode
-set shiftwidth=2  " Tabs under smart indent
-set nocp incsearch
-set cinoptions=:0,p0,t0
-set cinwords=if,else,while,do,for,switch,case
-set formatoptions=tcqr
-set smarttab
+" Whitespace stuff
+set tabstop=2
+set shiftwidth=2
+set shiftround
 set expandtab
-set hlsearch
-set ignorecase
-set smartcase
+set nowrap
+set list listchars=tab:->,trail:·
+set nojoinspaces
 
-filetype indent on
+" Make it obvious where 80 characters is
+set textwidth=80
+set colorcolumn=+1
+
+" Numbers
+set number
+set numberwidth=5
+
+" Open new split panes to right and bottom, which feels more natural
+set splitbelow
+set splitright
+
+" Set spellfile to location that is guaranteed to exist, can be symlinked to
+" Dropbox or kept in Git and managed outside of dotfiles using rcm.
+set spellfile=$HOME/.vim-spell-en.utf-8.add
+
+" Autocomplete with dictionary words when spell check is on
+set complete+=kspell
+
+" Always use vertical diffs
+set diffopt+=vertical
+
+" Switch syntax highlighting on, when the terminal has colors
+" Also switch on highlighting the last used search pattern.
+if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
+  syntax on
+endif
+
+if filereadable(expand("~/.vimrc.bundles"))
+  source ~/.vimrc.bundles
+endif
+
+" Load matchit.vim, but only if the user hasn't installed a newer version.
+if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+  runtime! macros/matchit.vim
+endif
+
 filetype plugin indent on
 
-" Visual
-set showmatch  " Show matching brackets.
-set mat=5  " Bracket blinking.
-set list
-set lcs=trail:·,tab:»·,extends:>,precedes:<
-set visualbell
-set noerrorbells  " No noise.
+" Color scheme
+colorscheme xoria256
+highlight NonText guibg=#060606
+highlight Folded  guibg=#0A0A0A guifg=#9090D0
 
-" gvim specific
-set mousehide  " Hide mouse after chars typed
-set mouse=a  " Mouse in all modes
 
-" The backspace should work like normal JR
-set backspace=indent,eol,start
+augroup vimrcEx
+  autocmd!
 
-" Show the position always JR
-set ruler
+  " When editing a file, always jump to the last known cursor position.
+  " Don't do it for commit messages, when the position is invalid, or when
+  " inside an event handler (happens when dropping a file on gvim).
+  autocmd BufReadPost *
+    \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
 
-" Reselect text that is pasted after overwrite
+  " Set syntax highlighting for specific file types
+  autocmd BufRead,BufNewFile *.md set filetype=markdown
+  autocmd BufRead,BufNewFile .{jscs,jshint,eslint}rc set filetype=json
+
+  " ALE linting events
+  if g:has_async
+    set updatetime=1000
+    let g:ale_lint_on_text_changed = 0
+    autocmd CursorHold * call ale#Lint()
+    autocmd CursorHoldI * call ale#Lint()
+    autocmd InsertEnter * call ale#Lint()
+    autocmd InsertLeave * call ale#Lint()
+
+    nnoremap ]r :ALENextWrap<CR>
+    nnoremap [r :ALEPreviousWrap<CR>
+    nnoremap ]d :ALEDetail<CR>
+
+    let g:ale_linters = {
+    \   'javascript': ['eslint', 'flow', 'prettier', 'prettier-eslint'],
+    \}
+    let g:ale_fixers = {
+    \   'javascript': ['eslint', 'prettier', 'prettier-eslint'],
+    \}
+  endif
+
+  " File Type Settings
+  autocmd filetype qf setlocal wrap
+
+  " Help System Speedups
+  autocmd filetype help nnoremap <buffer><CR> <c-]>
+  autocmd filetype help nnoremap <buffer><bs> <c-T>
+  autocmd filetype help nnoremap <buffer>q :q<CR>
+  autocmd filetype help set nonumber
+augroup END
+
+" git shortcuts
+noremap <leader>gb :Gblame<CR>
+noremap <leader>gd :Gdiff<CR>
+
+" open various consoles
+noremap <leader>gc :call system("tmux split-window -v -c '#{pane_current_path}' -p 30 'dev-console'")<CR>
+noremap <leader>gp :call system("tmux split-window -v -c '#{pane_current_path}' -p 30 'dev-db-console'")<CR>
+
+" simple vertical splits
+map <leader>v <C-w>v
+
+" Mappings for quick search & replace.
+" Do a / search first, then leave pattern empty in :s// to use last
+map <Leader>sra :%s///g<Left><Left>
+map <Leader>src :%s///gc<Left><Left><Left>
+
+" Hide highlighted terms
+map <silent> <leader><CR> :noh<CR>
+
 xnoremap p pgvy
 
-" Backups & Files
-set backupdir=~/.vim/backups " Where backups will go.
-set directory=~/.vim/tmp     " Where temporary files will go."
-set nobackup                 " no backup files
-set nowritebackup            " only in case you don't want a backup file while editing
-set noswapfile               " no swap files
+" Switch between the last two files
+nnoremap <Leader><Leader> <C-^>
 
-set wildmode=longest,list,full
-set wildmenu
+" Quicker window movement
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
 
-" When in visualblock, go past the end of the line
-set virtualedit=block
+" vim-tmux-runner mappings
+nnoremap <silent> <Leader>ro :VtrOpenRunner<CR>
+nnoremap <silent> <leader>ra :VtrAttachToPane<CR>
+nnoremap <silent> <leader>rs :VtrSendLinesToRunner<CR>
+nnoremap <silent> <leader>rf :VtrFocusRunner<CR>
 
-" Functions
-function! <SID>StripTrailingWhitespaces()
-    " Preparation: save last search, and cursor position.
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    " Do the business:
-    %s/\s\+$//e
-    " Clean up: restore previous search history, and cursor position
-    let @/=_s
-    call cursor(l, c)
-endfunction
+" Treat <li> and <p> tags like the block tags they are
+let g:html_indent_tags = 'li\|p'
 
-function! <SID>Clean()
-    " Preparation: save last search, and cursor position.
-    let _sC=@/
-    let lC = line(".")
-    let cC = col(".")
-    " Do the business:
-    %s/	/  /e
-    %s/\s\+$//e
-    " Clean up: restore previous search history, and cursor position
-    let @/=_sC
-    call cursor(lC, cC)
-endfunction
+" SplitJoin
+let g:splitjoin_trailing_comma = 1
+let g:splitjoin_ruby_curly_braces = 0
+let g:splitjoin_ruby_hanging_args = 0
 
-" autocommands
-if has('autocmd')
-  autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
-  autocmd BufRead *.md :setlocal noet
+" FZF
+nnoremap <Leader>t :Files<CR>
 
-  autocmd FileType make     set noexpandtab
-  autocmd FileType python   set noexpandtab
+let g:fzf_files_options =
+  \ '--reverse ' .
+  \ '--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'"'
 
-  autocmd BufNewFile,BufRead *.less set filetype=css
-  autocmd BufNewFile,BufRead *.pjs set filetype=javascript
-  autocmd BufNewFile,BufRead Podfile set filetype=ruby
-  autocmd BufNewFile,BufRead Gemfile set filetype=ruby
-  autocmd BufNewFile,BufRead *.af set filetype=ruby
-  autocmd BufNewFile,BufRead Fastfile set filetype=ruby
-  autocmd BufNewFile,BufRead Matchfile set filetype=ruby
-  autocmd BufNewFile,BufRead *.liquid set filetype=html
-  autocmd BufNewFile,BufRead *.ejs set filetype=html
-  autocmd BufNewFile,BufRead *.ino set filetype=c
-  autocmd BufNewFile,BufRead *css.liquid set filetype=css
-  autocmd BufNewFile,BufRead *scss.liquid set filetype=scss
-  autocmd BufNewFile,BufRead *js.liquid set filetype=javascript
-  autocmd BufNewFile,BufRead *.json set filetype=javascript
-  autocmd! BufNewFile,BufRead *.pde setlocal filetype=javascript
-  autocmd! BufNewFile,BufRead .babelrc setlocal filetype=javascript
+if executable('rg')
+  set grepprg=rg\ --color=never
+  let $FZF_DEFAULT_COMMAND='rg --files -g "" --hidden'
+elseif executable('ag')
+  set grepprg=ag\ --nocolor
+  let $FZF_DEFAULT_COMMAND='ag -g "" --hidden'
 endif
+
+" Tab completion
+" will insert tab at beginning of line,
+" will use completion if not at beginning
+set wildmode=list:longest,list:full
+function! InsertTabWrapper()
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~ '\k'
+        return "\<Tab>"
+    else
+        return "\<C-p>"
+    endif
+endfunction
+inoremap <Tab> <C-r>=InsertTabWrapper()<CR>
+inoremap <S-Tab> <C-n>
 
 " tabs and tab navigation
 nnoremap <C-t> :tabnew<CR>
 nnoremap <C-l> :tabnext<CR>
 nnoremap <C-h> :tabprevious<CR>
 
-" nerdtree
-map <Leader>n :NERDTreeToggle<CR>
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|_build|deps|ios|android|tmp|vendor)$'
 
-" CtrlP
-map <Leader>t :CtrlP<CR>
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|_build|deps|ios|android|tmp)$'
+let g:fzf_layout = { 'down': '~30%' }
 
-
-" command p
-" set runtimepath^=~/.vim/bundle/ctrlp.vim
-" set runtimepath^=~/.vim/bundle/ctrlp.vim
-
+noremap <Leader>l  :make % <cr>:cwindow<cr>:redraw!<cr>

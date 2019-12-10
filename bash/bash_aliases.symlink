@@ -6,7 +6,6 @@ alias play='mpg321'
 alias modify="awk '{field = \$NF}; END {print field}' | xargs open -a /Applications/MacVim.app"
 alias gitx="open -a /Applications/GitX.app"
 alias guard="bundle exec guard"
-alias dokku='$HOME/.dokku/contrib/dokku_client.sh'
 alias pg='pg_ctl -D /usr/local/var/postgres'
 alias pg_start='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
 alias pg_stop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
@@ -14,6 +13,14 @@ alias py='python'
 alias xcode_enable_vim='cd ~/Desktop/XVim/; make'
 alias xcode_disable_vim='cd ~/Desktop/XVim/; make uninstall'
 alias dokku='$HOME/.dokku/contrib/dokku_client.sh'
+alias vi='vim'
+alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
+alias ngrok='~/.ngrok'
 
 alias gs='git status'
 alias gc='git commit'
+alias git-delete-merged='git checkout master && git branch --merged master | grep -v "\* master" | xargs -n 1 git branch -d'
+alias lorem='lorem'
+lorem () {
+  gtr -dc a-z1-4 </dev/urandom | tr 1-2 ' \n' | awk 'length==0 || length>50' | tr 3-4 ' ' | sed 's/^ *//' | cat -s | sed 's/ / /g' |fmt | head -n $1 | pbcopy
+}

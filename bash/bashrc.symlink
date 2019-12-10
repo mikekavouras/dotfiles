@@ -10,6 +10,7 @@ export EDITOR='open -a /Applications/MacVim.app -f'
 export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
 export TERM=xterm-256color
 export PGHOST=localhost
+export GITHUB_API_TOKEN=3c0c5e6722f6914af7a302335cf68d3b9429a3db
 
 shopt -s checkwinsize
 shopt -s cdspell
@@ -40,4 +41,6 @@ fi
 export PATH="/usr/local/heroku/bin:$PATH"
 # source /Users/Mike/perl5/perlbrew/etc/bashrc
 
-export PATH="$HOME/.yarn/bin:$PATH"
+source /usr/local/etc/bash_completion.d/po
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

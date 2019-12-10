@@ -4,16 +4,18 @@ fi
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
 fi
+
+export GOPATH="$HOME/go"
 export PATH=/Applications/CMake.app/Contents/bin:/usr/local/heroku/bin:/Users/Mike/.dotfiles/bin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:/projects/devkitpro/devkitPPC/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin
-export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="$HOME/.rbenv/shims:$PATH"
 export PATH="/usr/local/git/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:$PATH"
+export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH="$GOPATH/bin:$PATH"
+export JAVA_HOME=$(/usr/libexec/java_home)
 export FONTCONFIG_PATH=/opt/X11/lib/X11/fontconfig:$FONTCONFIG_PATH
-alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
+export PROJECTS_PATH="$HOME/projects"
+export NVM_DIR="$HOME/.nvm"
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+. "/usr/local/opt/nvm/nvm.sh"
 eval "$(rbenv init -)"
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/mikekavouras/.google-cloud-sdk/path.bash.inc' ]; then source '/Users/mikekavouras/.google-cloud-sdk/path.bash.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/mikekavouras/.google-cloud-sdk/completion.bash.inc' ]; then source '/Users/mikekavouras/.google-cloud-sdk/completion.bash.inc'; fi
+source /usr/local/etc/bash_completion.d/po
